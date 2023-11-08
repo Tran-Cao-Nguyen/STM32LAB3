@@ -1,0 +1,3 @@
+graphic.c:10:6:display7SEG	16	static
+graphic.c:116:6:clearAllLed	8	static
+graphic.c:127:6:turnOnLed	16	static
