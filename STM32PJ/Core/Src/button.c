@@ -8,57 +8,81 @@
 
 #include "button.h"
 
-int button1_flag = 0;
+int buttonLastStage[NO_OF_BUTTONS];
+int buttonDebounce0[NO_OF_BUTTONS];
+int buttonDebounce1[NO_OF_BUTTONS];
+int buttonDebounce2[NO_OF_BUTTONS];
+int button_flag[NO_OF_BUTTONS];
+int TimerForKeyPressed[NO_OF_BUTTONS];
 
-int KeyReg0 = NORMAL_STATE;
-int KeyReg1 = NORMAL_STATE;
-int KeyReg2 = NORMAL_STATE;
 
-// Trạng thái ổn định trước đó
-int KeyReg3 = NORMAL_STATE;
-int TimerForKeyPressed = 200;
-
-int isButton1Pressed()
+void Init()
 {
-	if (button1_flag == 1)
+	for (int i = 0; i < NO_OF_BUTTONS; i++)
 	{
-		button1_flag = 0;
+		buttonDebounce0[i] = NORMAL_STATE;
+		buttonDebounce1[i] = NORMAL_STATE;
+		buttonDebounce2[i] = NORMAL_STATE;
+		buttonLastStage[i] = NORMAL_STATE;
+		button_flag[i] = 0;
+		TimerForKeyPressed[i] = 200;
+	}
+}
+
+
+int isButtonPressed(int idx)
+{
+	if (button_flag[idx] == 1)
+	{
+		button_flag[idx] = 0;
 		return 1;
 	}
 	return 0;
 }
 
-void subKeyProcess()
+void subKeyProcess(int idx)
 {
-	button1_flag = 0;
+	button_flag[idx] = 1;
+
 }
 
 void getKeyInput()
 {
-	KeyReg0 = KeyReg1;
-	KeyReg1 = KeyReg2;
-	KeyReg2 = HAL_GPIO_ReadPin(BUTTON1_GPIO_Port, BUTTON1_Pin);
-	if ((KeyReg0 == KeyReg1) && (KeyReg1 == KeyReg2))
+	for (int i = 0; i < NO_OF_BUTTONS; i++)
 	{
-		if (KeyReg3 != KeyReg2)
+		buttonDebounce0[i] = buttonDebounce1[i];
+		buttonDebounce1[i] = buttonDebounce2[i];
+		switch(i)
 		{
-			KeyReg3 = KeyReg2;
-			if (KeyReg2 == PRESSED_STATE)
+			case 0:
+				buttonDebounce2[i] = HAL_GPIO_ReadPin(BUTTON1_GPIO_Port, BUTTON1_Pin);
+				break;
+			case 1:
+				buttonDebounce2[i] = HAL_GPIO_ReadPin(BUTTON2_GPIO_Port, BUTTON2_Pin);
+				break;
+			case 2:
+				buttonDebounce2[i] = HAL_GPIO_ReadPin(BUTTON3_GPIO_Port, BUTTON3_Pin);
+				break;
+			default:
+				break;
+		}
+		if (buttonDebounce0[i] == buttonDebounce1[i] && buttonDebounce1[i] == buttonDebounce2[i])
+		{
+			if (buttonLastStage[i] != buttonDebounce2[i])
 			{
-				//TODO
-				subKeyProcess();
-				TimerForKeyPressed = 200;
+				buttonLastStage[i] = buttonDebounce2[i];
+				if (buttonDebounce2[i] == PRESSED_STATE)
+				{
+					//TODO
+					subKeyProcess(i);
+					TimerForKeyPressed[i] = 200;
+				}
+				else
+				{
+					buttonLastStage[i] = NORMAL_STATE;
+				}
 			}
 		}
-		else
-		{
-			TimerForKeyPressed--;
-			if (TimerForKeyPressed <= 0)
-			{
-				//TODO
-				KeyReg3 = NORMAL_STATE;
-			}
 
-		}
 	}
 }
