@@ -10,6 +10,8 @@
 
 #include "main.h"
 
+
+#define NO_OF_BUTTONS 3
 #define NORMAL_STATE GPIO_PIN_SET
 #define PRESSED_STATE GPIO_PIN_RESET
 
