@@ -8,6 +8,13 @@
 
 #include "fsm_automatic.h"
 
+void fsm_init()
+{
+	redCounter = redDuration;
+	greenCounter = greenDuration;
+	amberCounter = amberDuration;
+
+}
 
 void fsm_automatic_run(){
 	switch (status)
@@ -15,43 +22,81 @@ void fsm_automatic_run(){
 		case INIT:
 			clearAllLed();
 			status = RED_GREEN;
-			setTimer1(GREEN_DURATION);
+			fsm_init();
+
 			break;
 		case RED_GREEN:
 			turnOnLed(RED);
 			turnOnLed(GREEN2);
-			if (timer1_flag == 1)
+
+			road1 = redCounter;
+			road2 = greenCounter;
+
+			redCounter--;
+			greenCounter--;
+
+
+			if (greenCounter <= 0)
 			{
 				status = RED_AMBER;
-				setTimer1(AMBER_DURATION);
+				amberCounter = amberDuration;
 			}
 			break;
 		case RED_AMBER:
 			turnOnLed(AMBER2);
-			if (timer1_flag == 1)
+
+			road1 = redCounter;
+			road2 = amberCounter;
+
+			redCounter--;
+			amberCounter--;
+
+			if (redCounter <= 0)
 			{
 				status = GREEN_RED;
-				setTimer1(GREEN_DURATION);
+
+				redCounter = redDuration;
+				greenCounter = greenDuration;
+
 			}
 			break;
 		case GREEN_RED:
 			turnOnLed(GREEN);
 			turnOnLed(RED2);
-			if (timer1_flag == 1)
+
+			road1 = greenCounter;
+			road2 = redCounter;
+
+			redCounter--;
+			greenCounter--;
+
+			if (greenCounter <= 0)
 			{
 				status = AMBER_RED;
-				setTimer1(AMBER_DURATION);
+				amberCounter = amberDuration;
+
 			}
 			break;
 		case AMBER_RED:
 			turnOnLed(AMBER);
-			if (timer1_flag == 1)
+
+			road1 = amberCounter;
+			road2 = redCounter;
+
+			redCounter--;
+			amberCounter--;
+
+			if (redCounter <= 0)
 			{
 				status = RED_GREEN;
-				setTimer1(GREEN_DURATION);
+
+				redCounter = redDuration;
+				greenCounter = greenDuration;
+
 			}
 			break;
 		default:
 			break;
 	}
+
 }

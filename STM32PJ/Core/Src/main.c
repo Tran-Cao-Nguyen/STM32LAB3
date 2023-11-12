@@ -94,9 +94,28 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  setTimer2(100);
+  setTimer1(100);
+  int index_led = 0;
+  fsm_automatic_run();
   while (1)
   {
-	  fsm_automatic_run();
+	  if (timer1_flag == 1)
+	  {
+		  setTimer1(100);
+		  fsm_automatic_run();
+		  updateLedBuffer();
+
+	  }
+
+	  if (timer2_flag == 1)
+	  {
+		  setTimer2(25);
+		  update7SEG(index_led++);
+		  if (index_led >= 4) index_led = 0;
+	  }
+
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

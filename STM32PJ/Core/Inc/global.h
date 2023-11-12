@@ -19,8 +19,18 @@
 #define GREEN_RED 3
 #define AMBER_RED 4
 
-#define GREEN_DURATION 300
-#define AMBER_DURATION 200
+extern int redDuration;
+extern int greenDuration;
+extern int amberDuration;
+
+extern int redCounter;
+extern int greenCounter;
+extern int amberCounter;
+
+
+extern int road1;
+extern int road2;
+
 
 extern int status;
 

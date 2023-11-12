@@ -9,7 +9,7 @@
 #define INC_GRAPHIC_H_
 
 #include "main.h"
-
+#include "global.h"
 
 enum LED
 {
@@ -21,7 +21,11 @@ enum LED
 	AMBER2,
 };
 
+extern int led_buffer[4];
+
 void display7SEG(int num);
+void update7SEG(int index);
+void updateLedBuffer();
 void clearAllLed();
 void turnOnLed(enum LED led);
 
