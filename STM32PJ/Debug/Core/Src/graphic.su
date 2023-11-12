@@ -1,5 +1,6 @@
 graphic.c:11:6:display7SEG	16	static
 graphic.c:116:6:update7SEG	16	static
-graphic.c:155:6:updateLedBuffer	4	static
+graphic.c:155:6:updateLedBuffer	16	static
 graphic.c:166:6:clearAllLed	8	static
 graphic.c:177:6:turnOnLed	16	static
+graphic.c:215:6:blinkingLed	16	static

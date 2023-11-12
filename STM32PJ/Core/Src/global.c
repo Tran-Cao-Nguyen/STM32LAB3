@@ -20,3 +20,5 @@ int amberCounter;
 int road1 = 0;
 int road2 = 0;
 
+int mode = 0;
+

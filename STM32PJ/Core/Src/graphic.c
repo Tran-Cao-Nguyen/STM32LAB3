@@ -152,12 +152,12 @@ void update7SEG ( int index ){
 	}
 }
 
-void updateLedBuffer()
+void updateLedBuffer(int value1, int value2)
 {
-	led_buffer[0] = road1 / 10;
-	led_buffer[1] = road1 % 10;
-	led_buffer[2] = road2 / 10;
-	led_buffer[3] = road2 % 10;
+	led_buffer[0] = value1 / 10;
+	led_buffer[1] = value1 % 10;
+	led_buffer[2] = value2 / 10;
+	led_buffer[3] = value2 % 10;
 }
 
 
@@ -211,4 +211,39 @@ void turnOnLed(enum LED led)
 		default:
 			break;
 	}
+}
+void blinkingLed(enum LED led)
+{
+	switch (led)
+	{
+		case RED:
+			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+			HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
+			HAL_GPIO_WritePin(LED_AMBER_GPIO_Port, LED_AMBER_Pin, 1);
+
+			HAL_GPIO_TogglePin(LED_RED2_GPIO_Port, LED_RED2_Pin);
+			HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, 1);
+			HAL_GPIO_WritePin(LED_AMBER2_GPIO_Port, LED_AMBER2_Pin, 1);
+			break;
+		case GREEN:
+			HAL_GPIO_WritePin(LED_RED_GPIO_Port, LED_RED_Pin, 1);
+			HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+			HAL_GPIO_WritePin(LED_AMBER_GPIO_Port, LED_AMBER_Pin, 1);
+
+			HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, 1);
+			HAL_GPIO_TogglePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin);
+			HAL_GPIO_WritePin(LED_AMBER2_GPIO_Port, LED_AMBER2_Pin, 1);
+			break;
+		case AMBER:
+			HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED_Pin, 1);
+			HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, 1);
+			HAL_GPIO_TogglePin(LED_AMBER_GPIO_Port, LED_AMBER_Pin);
+
+			HAL_GPIO_WritePin(LED_RED2_GPIO_Port, LED_RED2_Pin, 1);
+			HAL_GPIO_WritePin(LED_GREEN2_GPIO_Port, LED_GREEN2_Pin, 1);
+			HAL_GPIO_TogglePin(LED_AMBER2_GPIO_Port, LED_AMBER2_Pin);
+			break;
+		default:
+			break;
+		}
 }

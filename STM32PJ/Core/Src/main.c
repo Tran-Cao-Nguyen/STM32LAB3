@@ -94,25 +94,35 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  initButton();
   setTimer2(100);
   setTimer1(100);
+  setTimer3(50);
   int index_led = 0;
   fsm_automatic_run();
   while (1)
   {
-	  if (timer1_flag == 1)
+	  if (timer1_flag)
 	  {
 		  setTimer1(100);
 		  fsm_automatic_run();
-		  updateLedBuffer();
+		  if(mode == 1)
+		  {
+			  updateLedBuffer(road1, road2);
+		  }
 
 	  }
 
-	  if (timer2_flag == 1)
+	  if (timer2_flag)
 	  {
 		  setTimer2(25);
 		  update7SEG(index_led++);
 		  if (index_led >= 4) index_led = 0;
+	  }
+	  if (timer3_flag)
+	  {
+		  setTimer3(50);
+		  fsm_manual_run();
 	  }
 
 
@@ -257,6 +267,8 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 	void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim )
 	{
+
+		getKeyInput();
 		timerRun();
 	}
 /* USER CODE END 4 */

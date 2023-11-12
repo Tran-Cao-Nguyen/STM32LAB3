@@ -19,6 +19,10 @@
 #define GREEN_RED 3
 #define AMBER_RED 4
 
+#define MAN_RED 11
+#define MAN_GREEN 12
+#define MAN_AMBER 13
+
 extern int redDuration;
 extern int greenDuration;
 extern int amberDuration;
@@ -27,9 +31,10 @@ extern int redCounter;
 extern int greenCounter;
 extern int amberCounter;
 
-
 extern int road1;
 extern int road2;
+
+extern int mode;
 
 
 extern int status;

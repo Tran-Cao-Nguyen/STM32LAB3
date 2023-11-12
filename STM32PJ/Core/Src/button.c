@@ -16,7 +16,7 @@ int button_flag[NO_OF_BUTTONS];
 int TimerForKeyPressed[NO_OF_BUTTONS];
 
 
-void Init()
+void initButton()
 {
 	for (int i = 0; i < NO_OF_BUTTONS; i++)
 	{

@@ -13,10 +13,16 @@ void fsm_init()
 	redCounter = redDuration;
 	greenCounter = greenDuration;
 	amberCounter = amberDuration;
-
+	mode = 1;
 }
 
 void fsm_automatic_run(){
+	if (isButtonPressed(0))
+	{
+		clearAllLed();
+		status = MAN_RED;
+		mode = 2;
+	}
 	switch (status)
 	{
 		case INIT:
@@ -26,6 +32,7 @@ void fsm_automatic_run(){
 
 			break;
 		case RED_GREEN:
+
 			turnOnLed(RED);
 			turnOnLed(GREEN2);
 
