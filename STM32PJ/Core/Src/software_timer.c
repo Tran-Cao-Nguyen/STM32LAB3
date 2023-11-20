@@ -17,19 +17,19 @@ int counter3 = 0;
 
 void setTimer1(int duration)
 {
-	counter1 = duration;
+	counter1 = duration / TICK;
 	timer1_flag = 0;
 }
 
 void setTimer2(int duration)
 {
-	counter2 = duration;
+	counter2 = duration / TICK;
 	timer2_flag = 0;
 }
 
 void setTimer3(int duration)
 {
-	counter3 = duration;
+	counter3 = duration / TICK;
 	timer3_flag = 0;
 }
 

@@ -10,18 +10,24 @@
 
 void fsm_init()
 {
-	redCounter = redDuration;
-	greenCounter = greenDuration;
-	amberCounter = amberDuration;
+	redCounter = redDuration / 1000;
+	greenCounter = greenDuration / 1000;
+	amberCounter = amberDuration / 1000;
 	mode = 1;
 }
 
 void fsm_automatic_run(){
+
 	if (isButtonPressed(0))
 	{
 		clearAllLed();
 		status = MAN_RED;
 		mode = 2;
+		tempRed = redDuration;
+		tempGreen = greenDuration;
+		tempAmber = amberDuration;
+		isButtonPressed(1);
+		isButtonPressed(2);
 	}
 	switch (status)
 	{
@@ -46,7 +52,7 @@ void fsm_automatic_run(){
 			if (greenCounter <= 0)
 			{
 				status = RED_AMBER;
-				amberCounter = amberDuration;
+				amberCounter = amberDuration / 1000;
 			}
 			break;
 		case RED_AMBER:
@@ -62,8 +68,8 @@ void fsm_automatic_run(){
 			{
 				status = GREEN_RED;
 
-				redCounter = redDuration;
-				greenCounter = greenDuration;
+				redCounter = redDuration / 1000;
+				greenCounter = greenDuration / 1000;
 
 			}
 			break;
@@ -80,7 +86,7 @@ void fsm_automatic_run(){
 			if (greenCounter <= 0)
 			{
 				status = AMBER_RED;
-				amberCounter = amberDuration;
+				amberCounter = amberDuration / 1000;
 
 			}
 			break;
@@ -97,13 +103,18 @@ void fsm_automatic_run(){
 			{
 				status = RED_GREEN;
 
-				redCounter = redDuration;
-				greenCounter = greenDuration;
+				redCounter = redDuration / 1000;
+				greenCounter = greenDuration / 1000;
 
 			}
 			break;
 		default:
 			break;
 	}
+	if (mode == 1)
+	{
+		updateLedBuffer(road1, road2);
+	}
+
 
 }

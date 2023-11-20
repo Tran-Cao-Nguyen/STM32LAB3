@@ -8,6 +8,14 @@
 
 int led_buffer[4] = {0, 0, 0, 0};
 
+void Init7SEG()
+{
+	HAL_GPIO_WritePin(EN0_GPIO_Port, EN0_Pin, 1);
+	HAL_GPIO_WritePin(EN1_GPIO_Port, EN1_Pin, 1);
+	HAL_GPIO_WritePin(EN2_GPIO_Port, EN2_Pin, 1);
+	HAL_GPIO_WritePin(EN3_GPIO_Port, EN3_Pin, 1);
+}
+
 void display7SEG(int num)
 {
 	if(num == 0)

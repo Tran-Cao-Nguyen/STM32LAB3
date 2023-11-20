@@ -9,6 +9,7 @@
 #define INC_SOFTWARE_TIMER_H_
 
 #include "main.h"
+#include "global.h"
 
 
 extern int timer1_flag;

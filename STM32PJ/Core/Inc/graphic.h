@@ -23,12 +23,15 @@ enum LED
 
 extern int led_buffer[4];
 
+
+void Init7SEG();
 void display7SEG(int num);
 void update7SEG(int index);
 void updateLedBuffer(int value1,int value2);
 void clearAllLed();
 void turnOnLed(enum LED led);
 void blinkingLed(enum LED led);
+
 
 
 

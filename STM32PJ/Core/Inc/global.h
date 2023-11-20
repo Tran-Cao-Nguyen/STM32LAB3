@@ -22,6 +22,7 @@
 #define MAN_RED 11
 #define MAN_GREEN 12
 #define MAN_AMBER 13
+#define ERROR 14
 
 extern int redDuration;
 extern int greenDuration;
@@ -35,6 +36,12 @@ extern int road1;
 extern int road2;
 
 extern int mode;
+
+extern int tempRed;
+extern int tempGreen;
+extern int tempAmber;
+
+extern int TICK;
 
 
 extern int status;

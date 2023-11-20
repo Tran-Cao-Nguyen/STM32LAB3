@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "fsm_automatic.h"
+#include "fsm_manual.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,35 +96,34 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   initButton();
-  setTimer2(100);
-  setTimer1(100);
-  setTimer3(50);
+  Init7SEG();
+  setTimer2(1000);
+  setTimer1(1000);
+  setTimer3(250);
   int index_led = 0;
   fsm_automatic_run();
   while (1)
   {
 	  if (timer1_flag)
 	  {
-		  setTimer1(100);
+		  setTimer1(1000);
 		  fsm_automatic_run();
-		  if(mode == 1)
-		  {
-			  updateLedBuffer(road1, road2);
-		  }
 
 	  }
 
 	  if (timer2_flag)
 	  {
-		  setTimer2(25);
+		  setTimer2(250);
 		  update7SEG(index_led++);
 		  if (index_led >= 4) index_led = 0;
 	  }
-	  if (timer3_flag)
+	  if(timer3_flag)
 	  {
-		  setTimer3(50);
+		  setTimer3(250);
 		  fsm_manual_run();
 	  }
+
+
 
 
     /* USER CODE END WHILE */
@@ -208,7 +208,7 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN TIM2_Init 2 */
-
+  TICK = ((1 + (float)htim2.Init.Prescaler) * (1 + (float)htim2.Init.Period)) / 8000000 * 1000;
   /* USER CODE END TIM2_Init 2 */
 
 }
